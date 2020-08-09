@@ -11,5 +11,6 @@ public class TestUtil {
         map.put("1000","test001");
         System.out.println(map.put("1000","test002"));
         System.out.println("1");
+        System.out.println("bug修改完成");
     }
 }
