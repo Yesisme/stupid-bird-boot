@@ -10,18 +10,18 @@ class ShareData {
 
     private Lock lock = new ReentrantLock();
 
-    private Condition condition = lock.newCondition();
+    private Condition  fullCondition = lock.newCondition();
+    private Condition  emptyCondition = lock.newCondition();
 
     public void increment() {
         lock.lock();
-
         try {
-            while (number != 0) {
-                condition.await();
+            while (number == 10) {
+                fullCondition.await();
             }
             number++;
             System.out.println(Thread.currentThread().getName() + "\t" + number);
-            condition.signalAll();
+            emptyCondition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -35,11 +35,11 @@ class ShareData {
 
         try {
             while (number == 0) {
-                condition.await();
+                emptyCondition.await();
             }
             number--;
             System.out.println(Thread.currentThread().getName() + "\t" + number);
-            condition.signalAll();
+            fullCondition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -55,16 +55,15 @@ public class ProdComsumer_TraditionDmeo {
     public static void main(String[] args) {
         ShareData shareData = new ShareData();
 
+        for (int i = 0; i <2 ; i++) {
         new Thread(()->{
-            for (int i = 0; i <5 ; i++) {
-                shareData.increment();
-            }
-        },"A").start();
-
+            shareData.increment();
+        }).start();
+        }
+        for (int i = 0; i <5 ; i++) {
         new Thread(()->{
-            for (int i = 0; i <5 ; i++) {
                 shareData.deCrement();
-            }
-        },"B").start();
+        }).start();
+        }
     }
 }

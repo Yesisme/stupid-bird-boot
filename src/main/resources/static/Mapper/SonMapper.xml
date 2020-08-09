@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.epsoft.demo.dao.SonMapper">
+
+    <resultMap id="BaseResultMap" type="com.epsoft.demo.bean.po.Son">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+
+        <association property="father" javaType="com.epsoft.demo.dao.FatherMapper">
+            <id column="F_ID" property="id" jdbcType="INTEGER" />
+            <result column="F_NAME" property="name" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    son.ID, son.NAME, father.ID AS F_ID, father.NAME AS F_NAME
+  </sql>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from son, father
+        where son.FATHER_ID=father.ID AND son.ID = #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

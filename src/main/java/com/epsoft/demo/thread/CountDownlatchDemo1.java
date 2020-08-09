@@ -5,13 +5,14 @@ import java.util.concurrent.CountDownLatch;
 public class CountDownlatchDemo1 {
 
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch cdl = new CountDownLatch(4);
+        CountDownLatch cdl = new CountDownLatch(3);
 
 
         new Thread(()->{
             System.out.println("挂号");
             cdl.countDown();
         }).start();
+
 
         new Thread(()->{
             System.out.println("看病");

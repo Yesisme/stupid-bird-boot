@@ -16,7 +16,6 @@ public class CallableTest {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         FutureTask futureTask = new FutureTask(new myThread());
-
         Thread t1 = new Thread(futureTask,"A");
         t1.start();
 

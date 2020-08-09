@@ -1,5 +1,8 @@
 package com.epsoft.demo.thread;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 public class MyThread extends Thread {
 
 
@@ -14,7 +17,7 @@ public class MyThread extends Thread {
             myThread.run();
             myThread.start();
         }
+        SortedSet<String> sortedSet = new TreeSet<>();
 
     }
-
 }

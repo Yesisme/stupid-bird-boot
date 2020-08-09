@@ -1,19 +1,13 @@
 package com.epsoft.demo.pattern.singleton.hungry;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.*;
 
 @Slf4j
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-
-
 
 		// 饿汉式
 		HungrySingleton instance = HungrySingleton.getInstance();

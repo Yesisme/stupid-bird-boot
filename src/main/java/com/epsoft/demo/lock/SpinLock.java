@@ -9,15 +9,13 @@ public class SpinLock {
     public void myLock(){
         Thread thread = Thread.currentThread();
         System.out.println(Thread.currentThread().getName()+"\t come in ");
-        while(!atomicReference.compareAndSet(null,thread)) { }
-
+        while(!atomicReference.compareAndSet(null,thread)) {}
     }
 
     public void myUnlock(){
         Thread thread = Thread.currentThread();
         System.out.println(Thread.currentThread().getName()+"\t come out ");
         atomicReference.compareAndSet(thread,null);
-
     }
 
     public static void main(String[] args) {

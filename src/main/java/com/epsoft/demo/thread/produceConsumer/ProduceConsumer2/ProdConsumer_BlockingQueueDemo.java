@@ -17,41 +17,35 @@ class MyResource {
         System.out.println(blockingQueue.getClass().getName());
     }
 
-    public void myProd() {
+    public void myProd() throws Exception {
         String data = null;
         boolean reValue;
         while (FLAG) {
             data = atomic.incrementAndGet()+"";
-            try {
-                reValue = blockingQueue.offer(data, 2L, TimeUnit.SECONDS);
+            reValue = blockingQueue.offer(data, 2L, TimeUnit.SECONDS);
                 if (reValue) {
                     System.out.println(Thread.currentThread().getName() + "\t" + "生产者生产" + data + "成功");
                 } else {
                     System.out.println(Thread.currentThread().getName() + "\t" + "生产者生产" + data + "失败");
                 }
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+            System.out.println("\t 大老板叫停了,停止生产!");
         }
-        System.out.println("\t 大老板叫停了,停止生产!");
-    }
 
-    public void myConsumer() {
+    public void myConsumer() throws Exception {
         String result = null;
         while (FLAG) {
-            try {
                 result = blockingQueue.poll(2L, TimeUnit.SECONDS);
                 if(null==result || result.equalsIgnoreCase("")){
                     FLAG = false;
                     System.out.println(Thread.currentThread().getName()+"\t 超过两秒钟没有消费超时退出");
+                    System.out.println();
+                    System.out.println();
                     return;
                 }
                 System.out.println(Thread.currentThread().getName()+"\t 消费者消费"+result+"成功！");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-        }
     }
 
     public void stop() {
@@ -66,15 +60,23 @@ public class ProdConsumer_BlockingQueueDemo {
         MyResource myResource = new MyResource(new ArrayBlockingQueue<String>(10));
 
         new Thread(()->{
-            System.out.println("\t 生产者线程启动");
-            myResource.myProd();
+            try {
+                System.out.println("\t 生产者线程启动");
+                myResource.myProd();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         },"prod").start();
 
         new Thread(()->{
             System.out.println();
             System.out.println();
             System.out.println("\t 消费者线程启动");
-            myResource.myConsumer();
+            try {
+                myResource.myConsumer();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         },"comsumer").start();
 

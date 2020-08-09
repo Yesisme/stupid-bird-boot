@@ -34,7 +34,7 @@ public class SychronousQueueDemo1 {
             queue.take();
 
             try { Thread.sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-            System.out.println(Thread.currentThread().getName()+"\t 取走2");
+            System.out.println(Thread.currentThread().getName()+"\t 取走3");
             queue.take();
             } catch (InterruptedException e) {
                 e.printStackTrace();

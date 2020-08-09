@@ -10,9 +10,7 @@ public class HungrySingleton implements Serializable{
 		instance = new HungrySingleton();
 	}
 	
-	private HungrySingleton() {
-		
-	}
+	private HungrySingleton() {}
 	
 	public static HungrySingleton getInstance() {
 		return instance;

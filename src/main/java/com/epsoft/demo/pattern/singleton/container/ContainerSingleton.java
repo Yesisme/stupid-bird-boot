@@ -2,7 +2,6 @@ package com.epsoft.demo.pattern.singleton.container;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ContainerSingleton {
 
@@ -10,7 +9,7 @@ public class ContainerSingleton {
 
     private ContainerSingleton(){}
 
-    public static void  putInstance(String key,Object Instance){
+    public static void putInstance(String key,Object Instance){
         if(!map.containsKey(key)){
             map.put(key, Instance);
         }

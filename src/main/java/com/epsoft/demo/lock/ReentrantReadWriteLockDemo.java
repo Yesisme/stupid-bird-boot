@@ -29,7 +29,7 @@ class MyCache {
     public void get(String key){
         try{
             rwLock.readLock().lock();
-            System.out.println(Thread.currentThread().getName()+"\t 正在读取");
+            System.out.println(Thread.currentThread().getName()+"\t 正在读取"+key);
             try { Thread.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
             Object result = map.get(key);
             System.out.println(Thread.currentThread().getName()+"\t 读取完成"+result);

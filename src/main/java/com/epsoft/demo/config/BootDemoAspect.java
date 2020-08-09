@@ -1,16 +1,12 @@
 package com.epsoft.demo.config;
 
 import com.epsoft.demo.exception.ParameterNotFound;
-import lombok.experimental.Wither;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
 
 
 @Aspect
@@ -23,8 +19,6 @@ public class BootDemoAspect {
 	public void executeMethod() {
 		//logger.info("\t 切包开始{}","=====================");
 	}
-
-
 
 	@Pointcut("target(com.epsoft.demo.service.user.UserService)")
 	public void method(){
@@ -50,25 +44,24 @@ public class BootDemoAspect {
 		//System.out.println("请求 ： "+request+" ,  HttpSession : "+session);
 		
 	}
-	
-	@AfterReturning(value = "execution(public * com.epsoft.demo.controller..*.*(..))",returning = "keys") 
-	public void doAfterReturningAdvice1(JoinPoint joinPoint,Object keys){ 
+
+	//使用Object来接收返回值
+	//joinpot必须写在前面
+	@AfterReturning(value = "execution(public * com.epsoft.demo.controller..*.*(..))",returning = "keys")
+	public void doAfterReturningAdvice1(JoinPoint joinPoint,Object keys){
 	  //logger.info("第一个后置返回通知的返回值{}："+keys);
 	} 
-	
-	@AfterReturning(value = "execution(public * com.epsoft.demo.controller..*.*(..))",returning = "keys",argNames = "keys") 
-	public void doAfterReturningAdvice2(String keys){ 
-	  //logger.info("第二个后置返回通知的返回值{}："+keys);
-	} 
-		
-	@AfterThrowing(value="executeMethod()")
-	public void doAfterThrowing(JoinPoint joinPoint) {
+
+	//exception用来接收异常的
+	@AfterThrowing(value="executeMethod()",throwing = "exception")
+	public void doAfterThrowing(Exception exception) {
 		//logger.info("{}","空指针异常");
 	}
 	  
 	@After(value = "executeMethod()")
 	public void doAfter(JoinPoint joinPoint) {
 		//logger.info("{}","后置通知执行了");
+		logger.info("方法名：{}",joinPoint.getSignature().getName());
 	}
 	
 	//@Around(value = "executeMethod()")

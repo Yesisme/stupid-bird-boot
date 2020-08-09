@@ -35,7 +35,8 @@ public class DataSourceConfig {
 				new PathMatchingResourcePatternResolver().getResources("classpath:/static/Mapper/**/*.xml"));
 		return bean.getObject();
 	}
-	
+
+	//事务管理器
 	@Bean(name = "dataTransactionManager")
 	public DataSourceTransactionManager transactionManager(@Qualifier("dataSource") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);

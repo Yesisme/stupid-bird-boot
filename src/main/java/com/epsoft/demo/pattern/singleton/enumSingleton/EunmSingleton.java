@@ -10,7 +10,7 @@ public enum EunmSingleton {
     private User user;
 
     private EunmSingleton(){
-        User user = new User();
+        user = new User();
     }
     public User getUser(){
         return user;
