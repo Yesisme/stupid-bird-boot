@@ -10,7 +10,7 @@ public class TestUtil {
         Map<String,String> map = new HashMap<String,String>(10);
         map.put("1000","test001");
         System.out.println(map.put("1000","test002"));
-        System.out.println("1");
-        System.out.println("bug修改完成");
+        System.out.println(map);
+        System.out.println("修改这个bug成功了");
     }
 }
