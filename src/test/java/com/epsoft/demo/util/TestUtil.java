@@ -10,6 +10,6 @@ public class TestUtil {
         Map<String,String> map = new HashMap<String,String>(10);
         map.put("1000","test001");
         System.out.println(map.put("1000","test002"));
-        System.out.println(map);
+        System.out.println("1");
     }
 }
